@@ -36,7 +36,7 @@ public class Utility {
     }
 
 
-    public static boolean handleCityResponse(String response){
+    public static boolean handleCityResponse(String response,int provinceID){
         boolean result=false;
         if(!TextUtils.isEmpty(response)){
             try{
@@ -44,6 +44,7 @@ public class Utility {
                 for(int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject=(JSONObject) jsonArray.get(i);
                     City city=new City();
+                    city.setProvinceId(provinceID);
                     city.setCityCode(jsonObject.getInt("id"));
                     city.setCityName(jsonObject.getString("name"));
                     city.save();
@@ -57,7 +58,7 @@ public class Utility {
     }
 
 
-    public static boolean handleCountyResponse(String response){
+    public static boolean handleCountyResponse(String response,int cityID){
         boolean result=false;
         if(!TextUtils.isEmpty(response)){
             try{
@@ -65,7 +66,8 @@ public class Utility {
                 for(int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject=(JSONObject) jsonArray.get(i);
                     County county=new County();
-                    county.setCityId(jsonObject.getInt("id"));
+                    county.setId(jsonObject.getInt("id"));
+                    county.setCityId(cityID);
                     county.setCountyName(jsonObject.getString("name"));
                     county.setWeatherId(jsonObject.getString("weather_id"));
                     county.save();
