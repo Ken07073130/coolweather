@@ -6,6 +6,10 @@ import android.text.TextUtils;
 import com.example.coolweather.db.City;
 import com.example.coolweather.db.County;
 import com.example.coolweather.db.Province;
+import com.example.coolweather.gson.Now;
+import com.example.coolweather.gson.Weather;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -79,4 +83,19 @@ public class Utility {
         }
         return result;
     }
+
+
+    public static Weather handleWeatherNowResponse(String response){
+        try{
+            Gson gson=new Gson();
+            Weather weather=gson.fromJson(response,Weather.class);
+            return weather;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 }
